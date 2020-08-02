@@ -49,15 +49,15 @@ def Motor(speed):
     if(speed>0):
         pwm.ChangeDutyCycle(speed)
         pwm2.ChangeDutyCycle(speed)
-        GPIO.output(20, True)
-        GPIO.output(21, False)
+        GPIO.output(20, False)
+        GPIO.output(21, True)
         GPIO.output(9, True)
         GPIO.output(11, False)
     elif{speed<0}:
-        pwm.ChangeDutyCycle(speed)
-        pwm2.ChangeDutyCycle(speed)
-        GPIO.output(20, False)
-        GPIO.output(21, True)
+        pwm.ChangeDutyCycle(-speed)
+        pwm2.ChangeDutyCycle(-speed)
+        GPIO.output(20, True)
+        GPIO.output(21, False)
         GPIO.output(9, False)
         GPIO.output(11, True)
     else:
@@ -66,23 +66,15 @@ def Motor(speed):
         GPIO.output(9, False)
         GPIO.output(11, False)
 
-    #  输出 90% 占空比的方波 3 秒，输出 30% 占空比的方波 3秒。如此往复。可以明显看到电机转速的变化。
-    while True:
-        pwm.ChangeDutyCycle(90)
-        pwm2.ChangeDutyCycle(90)
-        time.sleep(3)
-        pwm2.ChangeDutyCycle(30)
-        pwm.ChangeDutyCycle(30)
-        time.sleep(3)
 
 pwm.start(90)
 pwm2.start(90)
 head_gyro = Gyro(0x50)
-
+p = 2.5
 while(True):
         angle=head_gyro.get_angle()
-        Motor(angle[0])
-        time.sleep(0.1)
+        Motor(angle[0]*p)
+        time.sleep(0.02)
 
 
 
