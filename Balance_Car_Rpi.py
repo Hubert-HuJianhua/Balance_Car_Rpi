@@ -34,5 +34,5 @@ class Gyro(object):
 
 head_gyro = Gyro(0x50)
 while(True):
-        print(" Acc:  " + repr(head_gyro.get_acc()) + "\n", "Gyro: " + repr(head_gyro.get_gyro()) + "\n", "Angle:" + repr(head_gyro.get_angle()) + "\n")
+        print("Angle:" + repr(head_gyro.get_angle()) + "\n")
         time.sleep(0.2)
